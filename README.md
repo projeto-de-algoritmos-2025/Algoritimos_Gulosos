@@ -6,7 +6,7 @@
 ## Alunos
 |Matrícula | Aluno |
 | -- | -- |
-| xx/xxxxxx  |  xxxx xxxx xxxxx |
+| 21/1061897  |  Igor De Sousa Justino |
 | xx/xxxxxx  |  xxxx xxxx xxxxx |
 
 ## Sobre 
@@ -19,9 +19,9 @@ Este projeto implementa um jogo de labirinto que utiliza diferentes algoritmos d
 4. **IDA* (Iterative Deepening A*)**: Combina DFS com A*, otimizando o uso de memória
 
 ## Screenshots
-![Screenshot 1](link_para_screenshot1) - Tela inicial do jogo
-![Screenshot 2](link_para_screenshot2) - Labirinto em execução
-![Screenshot 3](link_para_screenshot3) - Comparação entre algoritmos
+- Tela inicial do jogo
+- Labirinto em execução
+- Comparação entre algoritmos
 
 ## Instalação 
 **Linguagem**: Python<br>
@@ -34,10 +34,10 @@ Este projeto implementa um jogo de labirinto que utiliza diferentes algoritmos d
 ### Comandos
 ```bash
 # Clone o repositório
-git clone [URL_DO_REPOSITORIO]
+git clone 
 
 # Entre na pasta do projeto
-cd [NOME_DA_PASTA]
+cd 
 
 # Instale as dependências
 pip install colorama
