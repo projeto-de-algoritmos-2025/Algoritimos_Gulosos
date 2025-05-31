@@ -1,16 +1,15 @@
 # Labirinto com Algoritmos de Busca
 
-**Número da Lista**: 1<br>
-**Conteúdo da Disciplina**: Grafos 1<br>
+**Conteúdo da Disciplina**: Algoritmos Gulosos<br>
 
 ## Alunos
 |Matrícula | Aluno |
 | -- | -- |
 | 21/1061897  |  Igor De Sousa Justino |
-| xx/xxxxxx  |  xxxx xxxx xxxxx |
+| 21/1061968  |  João Pedro Veras Gomes |
 
 ## Sobre 
-Este projeto implementa um jogo de labirinto que utiliza diferentes algoritmos de busca em grafos. O jogador deve navegar por um labirinto gerado aleatoriamente, coletar moedas e evitar barreiras enquanto tenta chegar ao final. O projeto demonstra a aplicação prática de algoritmos de busca como A*, DFS, Busca Gulosa e IDA*.
+Este projeto implementa um jogo de labirinto que compara diferentes algoritmos de resolução de labirintos gerados aleatoriamente. O labirinto é composto por muros e obstáculos com diferentes níveis de dificuldade. O projeto demonstra de forma prática a vantagem do uso de algoritmos gulosos para otimização da computação de soluções de labirintos.
 
 ### Algoritmos Implementados
 1. **A* (A-Star)**: Busca informada que usa heurística para encontrar o caminho mais curto
