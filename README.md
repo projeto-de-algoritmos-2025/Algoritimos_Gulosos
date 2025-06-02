@@ -1,6 +1,6 @@
 # Labirinto com Algoritmos de Busca
 
-**Conteúdo da Disciplina**: Algoritmos Gulosos<br>
+**Conteúdo da Disciplina**: Algoritmos de Busca<br>
 
 ## Alunos
 |Matrícula | Aluno |
@@ -9,13 +9,15 @@
 | 21/1061968  |  João Pedro Veras Gomes |
 
 ## Sobre 
-Este projeto implementa um jogo de labirinto que compara diferentes algoritmos de resolução de labirintos gerados aleatoriamente. O labirinto é composto por muros e obstáculos com diferentes níveis de dificuldade. O projeto demonstra de forma prática a vantagem do uso de algoritmos gulosos para otimização da computação de soluções de labirintos.
+Este projeto implementa um jogo de labirinto que compara diferentes algoritmos de resolução de labirintos gerados aleatoriamente. O labirinto é composto por muros e obstáculos com diferentes níveis de dificuldade. O projeto demonstra de forma prática a eficiência e características de diferentes algoritmos de busca na resolução de labirintos.
 
 ### Algoritmos Implementados
-1. **A* (A-Star)**: Busca informada que usa heurística para encontrar o caminho mais curto
-2. **Busca Gulosa**: Algoritmo que sempre escolhe o movimento mais próximo do objetivo
+1. **A* (A-Star)**: Busca informada que combina heurística com custo do caminho para encontrar a solução ótima
+2. **Dijkstra**: Algoritmo que encontra o caminho de menor custo considerando apenas os custos das células
 3. **DFS (Busca em Profundidade)**: Explora um caminho até não poder mais avançar
-4. **IDA* (Iterative Deepening A*)**: Combina DFS com A*, otimizando o uso de memória
+4. **Busca Gulosa**: Algoritmo que sempre escolhe o movimento mais próximo do objetivo usando apenas heurística
+5. **IDA* (Iterative Deepening A*)**: Combina DFS com A*, otimizando o uso de memória
+6. **Best-First Search**: Algoritmo que balanceia heurística e custo do caminho, priorizando a direção do objetivo
 
 ## Screenshots
 - Tela inicial do jogo
@@ -29,6 +31,7 @@ Este projeto implementa um jogo de labirinto que compara diferentes algoritmos d
 ### Pré-requisitos
 - Python 3.6 ou superior
 - Biblioteca colorama
+- Biblioteca tabulate
 
 ### Comandos
 ```bash
@@ -39,7 +42,7 @@ git clone
 cd 
 
 # Instale as dependências
-pip install colorama
+pip install -r requirements.txt
 
 # Execute o projeto
 python main.py
@@ -74,6 +77,7 @@ Ao gerar um novo labirinto, você pode:
 ## Outros 
 ### Métricas de Comparação
 Os algoritmos são comparados usando as seguintes métricas:
+- **Encontrou Solução**: Indica se o algoritmo encontrou um caminho válido
 - **Comprimento do Caminho**: Número de passos na solução
 - **Custo Total**: Soma dos custos de movimento (incluindo penalidades)
 - **Nós Visitados**: Quantidade de posições exploradas
@@ -83,5 +87,12 @@ Os algoritmos são comparados usando as seguintes métricas:
 - Colete todas as moedas antes de chegar ao final
 - Barreiras causam recuo de 5 posições
 - Cada movimento normal custa 1 ponto
-- Cada colisão com barreira custa 6 pontos 
->>>>>>> f217235 (arquivos)
+- Cada colisão com barreira custa 6 pontos
+
+### Características dos Algoritmos
+- **A***: Garante o caminho ótimo, balanceando perfeitamente heurística e custo
+- **Dijkstra**: Encontra o caminho de menor custo, ideal quando a heurística não é confiável
+- **DFS**: Rápido, mas não garante o menor caminho
+- **Busca Gulosa**: Rápido e direto ao objetivo, mas pode não encontrar o melhor caminho
+- **IDA***: Combina eficiência de memória do DFS com otimalidade do A*
+- **Best-First**: Balanceia velocidade e qualidade do caminho, priorizando a direção do objetivo
