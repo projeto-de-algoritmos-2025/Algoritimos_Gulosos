@@ -1,5 +1,6 @@
 from typing import Optional, List, Dict
 from tabulate import tabulate
+from colorama import Fore, Style, init
 
 from constantes import *
 from algoritmos import Labirinto, Posicao, MetricasBusca
@@ -8,7 +9,14 @@ from labirinto import (
     marcar_caminho_no_labirinto, 
     imprimir_labirinto
 )
-from algoritmos import resolver_guloso, resolver_dfs, resolver_ida_estrela, resolver_a_estrela
+from algoritmos import (
+    resolver_guloso, 
+    resolver_dfs, 
+    resolver_ida_estrela, 
+    resolver_a_estrela,
+    resolver_dijkstra,
+    resolver_best_first_search
+)
 from interface import (
     imprimir_cabecalho_labirinto, 
     imprimir_metricas,
@@ -17,11 +25,16 @@ from interface import (
 
 def comparar_algoritmos(lab: Labirinto, inicio: Posicao, fim: Posicao) -> None:
     """Compara todos os algoritmos disponíveis e mostra uma tabela com os resultados."""
+    # Inicializa o colorama para funcionar em todos os sistemas
+    init()
+    
     algoritmos = {
-        "A*": resolver_a_estrela,
-        "Guloso": resolver_guloso,
-        "DFS": resolver_dfs,
-        "IDA*": resolver_ida_estrela
+        f"{Fore.CYAN}A*{Style.RESET_ALL}": resolver_a_estrela,
+        f"{Fore.BLUE}Dijkstra{Style.RESET_ALL}": resolver_dijkstra,
+        f"{Fore.YELLOW}DFS{Style.RESET_ALL}": resolver_dfs,
+        f"{Fore.GREEN}Guloso{Style.RESET_ALL}": resolver_guloso,
+        f"{Fore.MAGENTA}IDA*{Style.RESET_ALL}": resolver_ida_estrela,
+        f"{Fore.RED}Best-First{Style.RESET_ALL}": resolver_best_first_search
     }
     
     resultados = []
@@ -29,30 +42,40 @@ def comparar_algoritmos(lab: Labirinto, inicio: Posicao, fim: Posicao) -> None:
     # Executa cada algoritmo
     for nome, func in algoritmos.items():
         caminho, metricas = func(lab, inicio, fim)
+        encontrou = f"{Fore.GREEN}Sim{Style.RESET_ALL}" if metricas.caminho_encontrado else f"{Fore.RED}Não{Style.RESET_ALL}"
         resultados.append({
             "Algoritmo": nome,
-            "Encontrou Solução": "Sim" if metricas.caminho_encontrado else "Não",
-            "Custo Total": metricas.custo_total,
-            "Comprimento": metricas.comprimento_caminho,
-            "Nós Visitados": metricas.nos_visitados,
-            "Tempo (s)": f"{metricas.tempo_execucao:.4f}"
+            "Encontrou Solução": encontrou,
+            "Custo Total": f"{Fore.BLUE}{metricas.custo_total}{Style.RESET_ALL}",
+            "Comprimento": f"{Fore.BLUE}{metricas.comprimento_caminho}{Style.RESET_ALL}",
+            "Nós Visitados": f"{Fore.BLUE}{metricas.nos_visitados}{Style.RESET_ALL}",
+            "Tempo (s)": f"{Fore.BLUE}{metricas.tempo_execucao:.4f}{Style.RESET_ALL}"
         })
     
     # Cria a tabela
-    headers = ["Algoritmo", "Encontrou Solução", "Custo Total", "Comprimento", "Nós Visitados", "Tempo (s)"]
-    table = [[r[h] for h in headers] for r in resultados]
+    headers = [
+        f"{Fore.WHITE}{Style.BRIGHT}Algoritmo{Style.RESET_ALL}",
+        f"{Fore.WHITE}{Style.BRIGHT}Encontrou Solução{Style.RESET_ALL}",
+        f"{Fore.WHITE}{Style.BRIGHT}Custo Total{Style.RESET_ALL}",
+        f"{Fore.WHITE}{Style.BRIGHT}Comprimento{Style.RESET_ALL}",
+        f"{Fore.WHITE}{Style.BRIGHT}Nós Visitados{Style.RESET_ALL}",
+        f"{Fore.WHITE}{Style.BRIGHT}Tempo (s){Style.RESET_ALL}"
+    ]
+    table = [[r[h.replace(f"{Fore.WHITE}{Style.BRIGHT}", "").replace(Style.RESET_ALL, "")] for h in headers] for r in resultados]
     
-    print("\nComparação dos Algoritmos:")
+    print(f"\n{Fore.WHITE}{Style.BRIGHT}Comparação dos Algoritmos:{Style.RESET_ALL}")
     print(tabulate(table, headers=headers, tablefmt="grid"))
 
 def mostrar_menu_algoritmos() -> None:
     """Mostra o menu de algoritmos disponíveis."""
     print("\nAlgoritmos Disponíveis:")
     print("1. A* (A-Star)")
-    print("2. Busca Gulosa")
+    print("2. Dijkstra")
     print("3. DFS (Busca em Profundidade)")
-    print("4. IDA* (Iterative Deepening A*)")
-    print("5. Voltar")
+    print("4. Busca Gulosa")
+    print("5. IDA* (Iterative Deepening A*)")
+    print("6. Best-First Search")
+    print("7. Voltar")
 
 def main() -> None:
     """Função principal do jogo."""
@@ -106,7 +129,7 @@ def main() -> None:
                 elif sub_escolha == "2":
                     while True:
                         mostrar_menu_algoritmos()
-                        alg_escolha = input("\nEscolha um algoritmo (ou 5 para voltar): ")
+                        alg_escolha = input("\nEscolha um algoritmo (ou 7 para voltar): ")
                         
                         if alg_escolha == "1" and labirinto_atual:
                             print("\nResolvendo com A*...")
@@ -118,8 +141,8 @@ def main() -> None:
                                 imprimir_labirinto(lab_resolvido)
                         
                         elif alg_escolha == "2" and labirinto_atual:
-                            print("\nResolvendo com Busca Gulosa...")
-                            caminho, metricas = resolver_guloso(labirinto_atual, pos_inicio, pos_fim)
+                            print("\nResolvendo com Dijkstra...")
+                            caminho, metricas = resolver_dijkstra(labirinto_atual, pos_inicio, pos_fim)
                             imprimir_metricas(metricas)
                             if caminho:
                                 print("\nSolução encontrada:")
@@ -136,6 +159,15 @@ def main() -> None:
                                 imprimir_labirinto(lab_resolvido)
                         
                         elif alg_escolha == "4" and labirinto_atual:
+                            print("\nResolvendo com Busca Gulosa...")
+                            caminho, metricas = resolver_guloso(labirinto_atual, pos_inicio, pos_fim)
+                            imprimir_metricas(metricas)
+                            if caminho:
+                                print("\nSolução encontrada:")
+                                lab_resolvido = marcar_caminho_no_labirinto(labirinto_atual, caminho)
+                                imprimir_labirinto(lab_resolvido)
+                        
+                        elif alg_escolha == "5" and labirinto_atual:
                             print("\nResolvendo com IDA*...")
                             caminho, metricas = resolver_ida_estrela(labirinto_atual, pos_inicio, pos_fim)
                             imprimir_metricas(metricas)
@@ -144,7 +176,16 @@ def main() -> None:
                                 lab_resolvido = marcar_caminho_no_labirinto(labirinto_atual, caminho)
                                 imprimir_labirinto(lab_resolvido)
                         
-                        elif alg_escolha == "5":
+                        elif alg_escolha == "6" and labirinto_atual:
+                            print("\nResolvendo com Best-First Search...")
+                            caminho, metricas = resolver_best_first_search(labirinto_atual, pos_inicio, pos_fim)
+                            imprimir_metricas(metricas)
+                            if caminho:
+                                print("\nSolução encontrada:")
+                                lab_resolvido = marcar_caminho_no_labirinto(labirinto_atual, caminho)
+                                imprimir_labirinto(lab_resolvido)
+                        
+                        elif alg_escolha == "7":
                             break
                         
                         else:
