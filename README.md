@@ -66,7 +66,6 @@ Este projeto implementa um jogo de labirinto que compara diferentes estratégias
 | **Best-First Search** | Sim        | Parcial     | Média                   | Flexível, permite ajustar trade-off entre custo e heurística. |
 
 ## Screenshots
-As imagens do projeto podem ser encontradas no diretório [assets/images](assets/images):
 
 ### Menu Principal
 ![Menu Principal](assets/images/scren1.png)
