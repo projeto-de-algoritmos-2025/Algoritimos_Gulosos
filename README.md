@@ -1,6 +1,6 @@
-# Labirinto com Algoritmos de Busca
+# Labirinto - Comparação de Algoritmos Gulosos e Busca
 
-**Conteúdo da Disciplina**: Algoritmos de Busca<br>
+**Conteúdo da Disciplina**: Projetos e Algoritmos - Algoritmos Gulosos<br>
 
 ## Alunos
 |Matrícula | Aluno |
@@ -9,20 +9,77 @@
 | 21/1061968  |  João Pedro Veras Gomes |
 
 ## Sobre 
-Este projeto implementa um jogo de labirinto que compara diferentes algoritmos de resolução de labirintos gerados aleatoriamente. O labirinto é composto por muros e obstáculos com diferentes níveis de dificuldade. O projeto demonstra de forma prática a eficiência e características de diferentes algoritmos de busca na resolução de labirintos.
+Este projeto implementa um jogo de labirinto que compara diferentes estratégias de resolução, com foco especial em algoritmos gulosos. O labirinto é gerado utilizando o Algoritmo de Prim, garantindo a criação de labirintos perfeitos e totalmente conectados. O labirinto é composto por muros e obstáculos com diferentes níveis de dificuldade, permitindo uma análise prática das vantagens e limitações das abordagens gulosas em comparação com outros métodos de busca.
 
-### Algoritmos Implementados
-1. **A* (A-Star)**: Busca informada que combina heurística com custo do caminho para encontrar a solução ótima
-2. **Dijkstra**: Algoritmo que encontra o caminho de menor custo considerando apenas os custos das células
-3. **DFS (Busca em Profundidade)**: Explora um caminho até não poder mais avançar
-4. **Busca Gulosa**: Algoritmo que sempre escolhe o movimento mais próximo do objetivo usando apenas heurística
-5. **IDA* (Iterative Deepening A*)**: Combina DFS com A*, otimizando o uso de memória
-6. **Best-First Search**: Algoritmo que balanceia heurística e custo do caminho, priorizando a direção do objetivo
+## Algoritmos Implementados
+
+
+
+1. **A* (A-Star)**
+
+   * Busca informada que une teoria de grafos e heurística para encontrar soluções ótimas.
+   * Utiliza a função de avaliação `f(n) = g(n) + h(n)`, onde:
+     * `g(n)`: custo acumulado do ponto de partida até o nó atual.
+     * `h(n)`: estimativa admissível do custo restante até o objetivo.
+   * Garante o caminho de custo mínimo se a heurística for admissível e consistente.
+   * Geralmente mais eficiente que o Dijkstra puro em labirintos grandes.
+
+2. **Dijkstra**
+
+   * Algoritmo clássico de caminho mínimo em grafos ponderados.
+   * Mantém uma fila de prioridades baseada nas distâncias conhecidas (`g(n)`).
+   * Expande sempre o nó com menor custo acumulado.
+   * Garante encontrar o caminho ótimo, mas não faz uso de heurística.
+   * Pode ser mais lento em grandes espaços de busca devido à exploração exaustiva.
+
+3. **DFS (Depth-First Search)**
+
+   * Explora cada ramo até o fim antes de retroceder (backtracking).
+   * Implementação baseada em pilha (recursiva ou explícita).
+   * Baixa complexidade de memória, pois armazena apenas o caminho atual.
+   * Não garante encontrar o menor caminho e pode visitar muitos nós desnecessariamente.
+
+4. **Busca Gulosa (Greedy Best-First Search)**
+
+   * Estratégia ambiciosa que avalia nós apenas pela heurística `h(n)`.
+   * Escolhe sempre o próximo nó que parece mais próximo do objetivo.
+   * Muito rápida e de baixo consumo de memória.
+   * Não garante otimalidade e pode ficar presa em becos sem saída ou mínimos locais.
+
+5. **Best-First Search**
+
+   * Variante híbrida que combina heurística e custo de caminho em uma única função de avaliação.
+   * Geralmente usa `f(n) = α · g(n) + (1 - α) · h(n)` ou similar, ajustando peso entre exploração e heurística.
+   * Mais equilibrado que a busca gulosa pura, oferecendo melhor qualidade de solução em labirintos complexos.
+   * Mantém desempenho computacional razoável, desde que os pesos sejam bem calibrados.
+
+---
+
+### Resumo Comparativo
+
+| Algoritmo             | Heurística | Otimalidade | Complexidade de Memória | Comentário Rápido                                             |
+| --------------------- | ---------- | ----------- | ----------------------- | ------------------------------------------------------------- |
+| **A***               | Sim        | Sim         | Alta                    | Melhor em grandes labirintos com heurística confiável.        |
+| **Dijkstra**          | Não        | Sim         | Alta                    | Exploração uniforme, sem direção preferencial.                |
+| **DFS**               | Não        | Não         | Baixa                   | Rápido em caminhos longos, mas não otimiza distância.         |
+| **Busca Gulosa**      | Sim        | Não         | Média                   | Muito ágil, porém arriscado em becos sem saída.               |
+| **Best-First Search** | Sim        | Parcial     | Média                   | Flexível, permite ajustar trade-off entre custo e heurística. |
 
 ## Screenshots
-- Tela inicial do jogo
-- Labirinto em execução
-- Comparação entre algoritmos
+As imagens do projeto podem ser encontradas no diretório [assets/images](assets/images):
+
+### Menu Principal
+![Menu Principal](assets/images/scren1.png)
+
+
+### Labirinto 
+![Labirinto](assets/images/scren2.png)
+
+### Labirinto em Execução
+![Labirinto em Execução](assets/images/scren5.png)
+
+### Comparação entre Algoritmos
+![Comparação Algoritmos](assets/images/screen3.png)
 
 ## Instalação 
 **Linguagem**: Python<br>
@@ -36,10 +93,10 @@ Este projeto implementa um jogo de labirinto que compara diferentes algoritmos d
 ### Comandos
 ```bash
 # Clone o repositório
-git clone 
+git clone https://github.com/projeto-de-algoritmos-2025/Labirinto_Algoritmos_Gulosos_e_Busca
 
 # Entre na pasta do projeto
-cd 
+cd Pa-Labirinto-3
 
 # Instale as dependências
 pip install -r requirements.txt
@@ -90,9 +147,12 @@ Os algoritmos são comparados usando as seguintes métricas:
 - Cada colisão com barreira custa 6 pontos
 
 ### Características dos Algoritmos
-- **A***: Garante o caminho ótimo, balanceando perfeitamente heurística e custo
-- **Dijkstra**: Encontra o caminho de menor custo, ideal quando a heurística não é confiável
-- **DFS**: Rápido, mas não garante o menor caminho
-- **Busca Gulosa**: Rápido e direto ao objetivo, mas pode não encontrar o melhor caminho
-- **IDA***: Combina eficiência de memória do DFS com otimalidade do A*
-- **Best-First**: Balanceia velocidade e qualidade do caminho, priorizando a direção do objetivo
+- **A***: Algoritmo que combina características gulosas (heurística) com programação dinâmica (custos acumulados) para garantir o caminho ótimo.
+
+- **Dijkstra**: Abordagem sistemática que encontra o caminho de menor custo, servindo como base de comparação para as estratégias gulosas.
+
+- **DFS**: Algoritmo simples de busca em profundidade, útil para comparar com abordagens gulosas em termos de eficiência.
+
+- **Busca Gulosa**: Exemplo clássico de algoritmo guloso, fazendo sempre a escolha localmente ótima baseada na heurística de distância. Rápido mas pode não encontrar a solução ótima.
+
+- **Best-First Search**: Estratégia gulosa mais sofisticada que tenta equilibrar a otimização local (característica gulosa) com alguma consideração de custos, mas ainda mantendo a eficiência computacional.

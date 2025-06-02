@@ -12,7 +12,6 @@ from labirinto import (
 from algoritmos import (
     resolver_guloso, 
     resolver_dfs, 
-    resolver_ida_estrela, 
     resolver_a_estrela,
     resolver_dijkstra,
     resolver_best_first_search
@@ -33,7 +32,6 @@ def comparar_algoritmos(lab: Labirinto, inicio: Posicao, fim: Posicao) -> None:
         f"{Fore.BLUE}Dijkstra{Style.RESET_ALL}": resolver_dijkstra,
         f"{Fore.YELLOW}DFS{Style.RESET_ALL}": resolver_dfs,
         f"{Fore.GREEN}Guloso{Style.RESET_ALL}": resolver_guloso,
-        f"{Fore.MAGENTA}IDA*{Style.RESET_ALL}": resolver_ida_estrela,
         f"{Fore.RED}Best-First{Style.RESET_ALL}": resolver_best_first_search
     }
     
@@ -73,9 +71,8 @@ def mostrar_menu_algoritmos() -> None:
     print("2. Dijkstra")
     print("3. DFS (Busca em Profundidade)")
     print("4. Busca Gulosa")
-    print("5. IDA* (Iterative Deepening A*)")
-    print("6. Best-First Search")
-    print("7. Voltar")
+    print("5. Best-First Search")
+    print("6. Voltar")
 
 def main() -> None:
     """Função principal do jogo."""
@@ -129,7 +126,7 @@ def main() -> None:
                 elif sub_escolha == "2":
                     while True:
                         mostrar_menu_algoritmos()
-                        alg_escolha = input("\nEscolha um algoritmo (ou 7 para voltar): ")
+                        alg_escolha = input("\nEscolha um algoritmo (ou 6 para voltar): ")
                         
                         if alg_escolha == "1" and labirinto_atual:
                             print("\nResolvendo com A*...")
@@ -168,15 +165,6 @@ def main() -> None:
                                 imprimir_labirinto(lab_resolvido)
                         
                         elif alg_escolha == "5" and labirinto_atual:
-                            print("\nResolvendo com IDA*...")
-                            caminho, metricas = resolver_ida_estrela(labirinto_atual, pos_inicio, pos_fim)
-                            imprimir_metricas(metricas)
-                            if caminho:
-                                print("\nSolução encontrada:")
-                                lab_resolvido = marcar_caminho_no_labirinto(labirinto_atual, caminho)
-                                imprimir_labirinto(lab_resolvido)
-                        
-                        elif alg_escolha == "6" and labirinto_atual:
                             print("\nResolvendo com Best-First Search...")
                             caminho, metricas = resolver_best_first_search(labirinto_atual, pos_inicio, pos_fim)
                             imprimir_metricas(metricas)
@@ -185,7 +173,7 @@ def main() -> None:
                                 lab_resolvido = marcar_caminho_no_labirinto(labirinto_atual, caminho)
                                 imprimir_labirinto(lab_resolvido)
                         
-                        elif alg_escolha == "7":
+                        elif alg_escolha == "6":
                             break
                         
                         else:
