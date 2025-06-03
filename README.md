@@ -11,6 +11,9 @@
 ## Sobre 
 Este projeto implementa um jogo de labirinto que compara diferentes estratégias de resolução, com foco especial em algoritmos gulosos. O labirinto é gerado utilizando o Algoritmo de Prim, garantindo a criação de labirintos perfeitos e totalmente conectados. O labirinto é composto por muros e obstáculos com diferentes níveis de dificuldade, permitindo uma análise prática das vantagens e limitações das abordagens gulosas em comparação com outros métodos de busca.
 
+## Apresentação
+A apresentação pode ser acessada [clicando aqui](https://youtu.be/TItLdQwibVA).
+
 ## Algoritmos Implementados
 
 
